@@ -1,0 +1,30 @@
+---
+# tasks file for rabbitmq-svr
+- name: Add RabbitMQ PackageCloud package signing key
+  become: true
+  apt_key:
+    url: "https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey"
+    state: present
+
+- name: Add RabbitMQ PackageCloud repository
+  become: true
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items:
+    - "deb https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ {{ ansible_distribution_release }} main"
+    - "deb https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ {{ ansible_distribution_release }} main"
+
+- name: Update apt cache
+  become: true
+  apt:
+    update_cache: yes
+
+- name: Install RabbitMQ server apt package
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - erlang
+    - rabbitmq-server
