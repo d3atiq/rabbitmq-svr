@@ -9,11 +9,8 @@
 - name: Add RabbitMQ PackageCloud repository
   become: true
   apt_repository:
-    repo: "{{ item }}"
+    repo: "deb https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ {{ ansible_distribution_release }} main"
     state: present
-  with_items:
-    - "deb https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ {{ ansible_distribution_release }} main"
-    - "deb https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ {{ ansible_distribution_release }} main"
 
 - name: Update apt cache
   become: true
