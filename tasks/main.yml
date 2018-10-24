@@ -20,8 +20,5 @@
 - name: Install RabbitMQ server apt package
   become: true
   apt:
-    name: "{{ item }}"
+    name: [ erlang, rabbitmq-server ]
     state: present
-  with_items:
-    - erlang
-    - rabbitmq-server
